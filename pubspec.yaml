@@ -1,7 +1,0 @@
-dependencies:
-  flutter:
-    sdk: flutter
-  flutter_markdown: ^0.6.14
-  provider: ^6.0.5
-  intl: ^0.18.0
-  # uuid: ^4.2.1 (Optional for generating IDs)

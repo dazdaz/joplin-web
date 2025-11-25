@@ -1,0 +1,65 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.buildlog/
+.history
+.svn/
+migrate_working_dir/
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# VS Code
+.vscode/
+
+# Flutter/Dart
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+/build/
+/joplin_web_clone/build/
+
+# Web related
+lib/generated_plugin_registrant.dart
+
+# Lock files (keep pubspec.lock for web projects though)
+# pubspec.lock
+
+# Platform specific
+/android/
+/ios/
+/macos/
+/linux/
+/windows/
+
+# Test outputs
+coverage/
+
+# Python (if using any python scripts)
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+env/
+venv/
+.env
+
+# PID files
+*.pid
+
+# Node (if any)
+node_modules/
+
+# Build outputs
+*.js.map
+*.js.deps

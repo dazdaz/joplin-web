@@ -1,0 +1,16 @@
+{
+  "notebooks": [
+    {"id": "nb1", "title": "Welcome", "parent_id": ""},
+    {"id": "nb2", "title": "Projects", "parent_id": ""},
+    {"id": "nb3", "title": "Web Development", "parent_id": "nb2"}
+  ],
+  "notes": [
+    {
+      "id": "n1",
+      "parent_id": "nb1",
+      "title": "Getting Started",
+      "body": "# Welcome to Joplin Web!\n\nThis is a web-based clone of Joplin.\n\n## Features\n\n- Create and edit notes\n- Organize with notebooks\n- Import .jex files\n- Export as markdown",
+      "updated_time": 1700000000000
+    }
+  ]
+}

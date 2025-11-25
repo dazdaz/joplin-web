@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Configuration
-PROJECT_NAME="joplin_web_clone"
-PORT=8080
+PROJECT_NAME="flutter_app"
+PORT=8081
 PID_FILE=".joplin_web.pid"
 
 # Colors for output
@@ -14,10 +14,8 @@ NC='\033[0m' # No Color
 # 1. Navigation Logic
 # Check if we are inside the project or next to it
 if [ -f "pubspec.yaml" ]; then
-    # We are inside the project
     PROJECT_ROOT="."
 elif [ -d "$PROJECT_NAME" ]; then
-    # We are next to the project
     PROJECT_ROOT="./$PROJECT_NAME"
 else
     echo -e "${RED}Error: Could not find the Flutter project '$PROJECT_NAME'.${NC}"
@@ -33,35 +31,42 @@ start_server() {
             echo -e "Open: http://localhost:$PORT"
             exit 0
         else
-            # Stale PID file
             rm "$PID_FILE"
         fi
     fi
 
+    if lsof -i :$PORT > /dev/null 2>&1; then
+        echo -e "${RED}Error: Port $PORT is already in use.${NC}"
+        exit 1
+    fi
+
     cd "$PROJECT_ROOT"
     
-    # Check if build exists, if not, build it
-    if [ ! -d "build/web" ]; then
-        echo -e "${YELLOW}Build not found. Building Flutter Web project...${NC}"
+    # Force clean build if requested or if build missing
+    if [ "$1" == "--clean" ] || [ "$1" == "clean" ] || [ ! -d "build/web" ]; then
+        echo -e "${YELLOW}Building Flutter Web project (Clean Build)...${NC}"
+        flutter clean
+        flutter pub get
         flutter build web --release
     fi
 
     echo -e "${GREEN}Starting local server on port $PORT...${NC}"
     
-    # Enter build directory to serve files
-    cd build/web
+    if ! cd build/web; then
+        echo -e "${RED}Error: Could not enter build/web directory. Current dir: $(pwd)${NC}"
+        exit 1
+    fi
+    echo -e "Serving from: $(pwd)"
     
-    # Start Python server in background, suppress output, save PID
     nohup python3 -m http.server $PORT > /dev/null 2>&1 & 
     SERVER_PID=$!
     
-    # Save PID to file (relative to where the script started)
-    cd ../../.. # Go back to original location
+    cd ../../..
     echo $SERVER_PID > "$PID_FILE"
     
     echo -e "${GREEN}Success! Joplin Web is running.${NC}"
-    echo -e "üëâ Access it here: ${GREEN}http://localhost:$PORT${NC}"
-    echo -e "   (Run './start.sh --stop' to close it)"
+    echo -e "🌐 Access it here: ${GREEN}http://localhost:$PORT${NC}"
+    echo -e "   (Run './start.sh stop' to close it)"
 }
 
 # Function to stop the server
@@ -80,29 +85,128 @@ stop_server() {
     fi
 }
 
-# Function to run debug mode
-debug_app() {
-    echo -e "${YELLOW}Entering Debug Mode (Hot Reload enabled)...${NC}"
+# Function to run debug mode with hot reload (Flutter debug)
+run_flutter_debug() {
+    echo -e "${YELLOW}Starting Flutter Debug Mode with Hot Reload...${NC}"
+    echo -e "This provides:"
+    echo -e "  - Hot reload (press 'r' in terminal)"
+    echo -e "  - Full debug logging in browser console"
+    echo -e "  - Source maps for debugging"
+    echo ""
     cd "$PROJECT_ROOT"
-    flutter run -d chrome
+    flutter run -d chrome --web-renderer html
+}
+
+# Function to run debug server (production build with debug info)
+run_debug_server() {
+    echo -e "${YELLOW}Building Flutter Web project with Debug Info...${NC}"
+    
+    # Stop any existing server
+    if [ -f "$PID_FILE" ]; then
+        PID=$(cat "$PID_FILE")
+        if ps -p $PID > /dev/null 2>&1; then
+            kill $PID
+            rm "$PID_FILE"
+        fi
+    fi
+
+    if lsof -i :$PORT > /dev/null 2>&1; then
+        echo -e "${RED}Error: Port $PORT is already in use.${NC}"
+        exit 1
+    fi
+
+    cd "$PROJECT_ROOT"
+    
+    # Clean and build with source maps
+    flutter clean
+    flutter pub get
+    
+    # Build with profile mode for better debugging
+    echo -e "${YELLOW}Building with debug source maps...${NC}"
+    flutter build web --profile --source-maps
+    
+    echo -e "${GREEN}Starting debug server on port $PORT...${NC}"
+    
+    if ! cd build/web; then
+        echo -e "${RED}Error: Could not enter build/web directory.${NC}"
+        exit 1
+    fi
+    
+    echo -e "Serving from: $(pwd)"
+    
+    # Run Python server with verbose logging
+    echo -e "${YELLOW}Server logging enabled. Press Ctrl+C to stop.${NC}"
+    echo -e "============================================"
+    python3 -m http.server $PORT
+}
+
+# Function to show status
+show_status() {
+    if [ -f "$PID_FILE" ]; then
+        PID=$(cat "$PID_FILE")
+        if ps -p $PID > /dev/null; then
+            echo -e "${GREEN}Joplin Web is running (PID: $PID)${NC}"
+            echo -e "URL: http://localhost:$PORT"
+        else
+            echo -e "${YELLOW}PID file exists but process not running. Cleaning up.${NC}"
+            rm "$PID_FILE"
+        fi
+    else
+        echo -e "${YELLOW}Joplin Web is not running.${NC}"
+    fi
+}
+
+# Show help
+show_help() {
+    echo -e "${GREEN}Joplin Web - Start Script${NC}"
+    echo ""
+    echo "Usage: $0 <command> [options]"
+    echo ""
+    echo "Commands:"
+    echo "  start [clean]  - Build (if needed) and serve the app in the background"
+    echo "  stop           - Stop the background server"
+    echo "  debug          - Run with Flutter hot reload in Chrome (development mode)"
+    echo "  debug-server   - Build with source maps and run server with logging"
+    echo "  status         - Check if the server is running"
+    echo "  help           - Show this help message"
+    echo ""
+    echo "Options:"
+    echo "  clean          - Force a clean rebuild before starting"
+    echo ""
+    echo "Debug Commands:"
+    echo "  $0 debug          # Best for development - hot reload in Chrome"
+    echo "  $0 debug-server   # Debug build served with logging"
+    echo ""
+    echo "Examples:"
+    echo "  $0 start           # Start the server"
+    echo "  $0 start clean     # Clean build and start"
+    echo "  $0 stop            # Stop the server"
+    echo "  $0 debug           # Run in debug mode with hot reload"
+    echo "  $0 debug-server    # Run debug build with server logging"
 }
 
 # Main Argument Parsing
 case "$1" in
-    --start)
-        start_server
+    start|--start)
+        start_server "$2"
         ;;
-    --stop)
+    stop|--stop)
         stop_server
         ;;
-    --debug)
-        debug_app
+    debug|--debug)
+        run_flutter_debug
+        ;;
+    debug-server|--debug-server)
+        run_debug_server
+        ;;
+    status|--status)
+        show_status
+        ;;
+    help|--help|-h)
+        show_help
         ;;
     *)
-        echo -e "${RED}Usage: $0 {--start|--stop|--debug}${NC}"
-        echo "  --start  : Build (if needed) and serve the app in the background."
-        echo "  --debug  : Run the app in Chrome with Hot Reload (occupies terminal)."
-        echo "  --stop   : Stop the background server."
+        show_help
         exit 1
         ;;
 esac
