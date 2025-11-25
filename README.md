@@ -1,6 +1,6 @@
 # Joplin Web
 
-A web-based note-taking application inspired by [Joplin](https://joplinapp.org/), built with Flutter.
+A web-based note-taking application inspired and compatible by [Joplin](https://joplinapp.org/), built with Flutter.
 
 ## Features
 

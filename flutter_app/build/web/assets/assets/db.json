@@ -2,15 +2,69 @@
   "notebooks": [
     {"id": "nb1", "title": "Welcome", "parent_id": ""},
     {"id": "nb2", "title": "Projects", "parent_id": ""},
-    {"id": "nb3", "title": "Web Development", "parent_id": "nb2"}
+    {"id": "nb3", "title": "Web Development", "parent_id": "nb2"},
+    {"id": "nb4", "title": "Personal", "parent_id": ""},
+    {"id": "nb5", "title": "Work", "parent_id": ""},
+    {"id": "nb6", "title": "Meeting Notes", "parent_id": "nb5"},
+    {"id": "nb7", "title": "Recipes", "parent_id": "nb4"},
+    {"id": "nb8", "title": "Travel", "parent_id": "nb4"}
   ],
   "notes": [
     {
       "id": "n1",
       "parent_id": "nb1",
       "title": "Getting Started",
-      "body": "# Welcome to Joplin Web!\n\nThis is a web-based clone of Joplin.\n\n## Features\n\n- Create and edit notes\n- Organize with notebooks\n- Import .jex files\n- Export as markdown",
-      "updated_time": 1700000000000
+      "body": "# Welcome to Joplin Web!\n\nThis is a web-based clone of Joplin - a free, open source note taking and to-do application.\n\n## Features\n\n- **Create and edit notes** with markdown support\n- **Organize with notebooks** in a hierarchical structure\n- **Import .jex files** from desktop Joplin\n- **Export as markdown** for backup or sharing\n\n## Quick Tips\n\n1. Click on a notebook to filter notes\n2. Double-click a notebook to expand/collapse children\n3. Use the toolbar to format your text\n4. Toggle between Edit and Preview modes\n\n## Keyboard Shortcuts\n\n- **Bold**: `**text**`\n- **Italic**: `*text*`\n- **Code**: `` `code` ``",
+      "updated_time": 1732559196000
+    },
+    {
+      "id": "n2",
+      "parent_id": "nb3",
+      "title": "React Tutorial Notes",
+      "body": "# React Tutorial Notes\n\n## Components\n\nReact components are the building blocks of any React app.\n\n```jsx\nfunction Welcome(props) {\n  return <h1>Hello, {props.name}</h1>;\n}\n```\n\n## Props vs State\n\n| Feature | Props | State |\n|---------|-------|-------|\n| Mutable | No | Yes |\n| Owner | Parent | Component |\n| Purpose | Configuration | Interactive data |\n\n## Hooks\n\n- `useState` - State management\n- `useEffect` - Side effects\n- `useContext` - Context API\n- `useReducer` - Complex state",
+      "updated_time": 1732558800000
+    },
+    {
+      "id": "n3",
+      "parent_id": "nb3",
+      "title": "CSS Grid Cheatsheet",
+      "body": "# CSS Grid Cheatsheet\n\n## Container Properties\n\n```css\n.container {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  grid-template-rows: auto;\n  gap: 20px;\n}\n```\n\n## Item Placement\n\n```css\n.item {\n  grid-column: 1 / 3;  /* span 2 columns */\n  grid-row: 1 / 2;\n}\n```\n\n## Useful Functions\n\n- `repeat(3, 1fr)` - Repeat pattern\n- `minmax(100px, 1fr)` - Min and max sizes\n- `auto-fill` - Fill available space\n- `auto-fit` - Fit content",
+      "updated_time": 1732555200000
+    },
+    {
+      "id": "n4",
+      "parent_id": "nb6",
+      "title": "Team Standup - Nov 25",
+      "body": "# Team Standup - November 25, 2024\n\n## Attendees\n- Alice (Frontend)\n- Bob (Backend)\n- Carol (Design)\n\n## Updates\n\n### Alice\n- [x] Completed login page redesign\n- [ ] Working on dashboard widgets\n- Blocker: Need API specs from Bob\n\n### Bob\n- [x] Fixed authentication bug\n- [ ] Implementing new REST endpoints\n- ETA: Wednesday\n\n### Carol\n- [x] Finished mobile mockups\n- [ ] Starting user testing prep\n\n## Action Items\n\n1. Bob to share API docs by EOD\n2. Schedule design review for Thursday\n3. Update project timeline",
+      "updated_time": 1732559100000
+    },
+    {
+      "id": "n5",
+      "parent_id": "nb7",
+      "title": "Pasta Carbonara",
+      "body": "# Pasta Carbonara\n\n*Classic Italian comfort food*\n\n## Ingredients\n\n- 400g spaghetti\n- 200g guanciale (or pancetta)\n- 4 egg yolks\n- 100g Pecorino Romano\n- Black pepper\n- Salt\n\n## Instructions\n\n1. Cook pasta in salted water until al dente\n2. Cut guanciale into small cubes\n3. Fry guanciale until crispy\n4. Mix egg yolks with grated cheese\n5. Drain pasta, reserve some water\n6. Combine pasta with guanciale\n7. Remove from heat, add egg mixture\n8. Toss quickly, add pasta water if needed\n9. Season with black pepper\n\n> **Tip**: Never add the eggs while on heat - they'll scramble!",
+      "updated_time": 1732500000000
+    },
+    {
+      "id": "n6",
+      "parent_id": "nb8",
+      "title": "Tokyo Trip Planning",
+      "body": "# Tokyo Trip Planning\n\n## Dates\n**March 15-25, 2025** (Cherry blossom season!)\n\n## Must-See Places\n\n### Traditional\n- [ ] Senso-ji Temple\n- [ ] Meiji Shrine\n- [ ] Imperial Palace\n- [ ] Fushimi Inari (day trip to Kyoto)\n\n### Modern\n- [ ] Shibuya Crossing\n- [ ] Akihabara\n- [ ] Tokyo Skytree\n- [ ] teamLab Borderless\n\n## Food Goals\n\n1. Authentic ramen at a local shop\n2. Sushi at Tsukiji Outer Market\n3. Wagyu beef experience\n4. Matcha everything!\n\n## Budget Estimate\n\n| Category | Amount |\n|----------|--------|\n| Flights | $1,200 |\n| Hotels (10 nights) | $1,500 |\n| Food | $800 |\n| Activities | $500 |\n| **Total** | **$4,000** |",
+      "updated_time": 1732400000000
+    },
+    {
+      "id": "n7",
+      "parent_id": "nb5",
+      "title": "Q4 Goals",
+      "body": "# Q4 2024 Goals\n\n## Professional Development\n\n- [ ] Complete AWS certification\n- [ ] Read 2 technical books\n- [ ] Give a tech talk at team meeting\n- [ ] Mentor junior developer\n\n## Project Goals\n\n- [ ] Launch v2.0 of main product\n- [ ] Reduce bug backlog by 50%\n- [ ] Improve test coverage to 80%\n- [ ] Document all APIs\n\n## Metrics to Track\n\n1. Sprint velocity\n2. Customer satisfaction score\n3. System uptime\n4. Response time improvements\n\n---\n\n*Review date: December 15, 2024*",
+      "updated_time": 1732300000000
+    },
+    {
+      "id": "n8",
+      "parent_id": "nb2",
+      "title": "Project Ideas",
+      "body": "# Project Ideas\n\n## Side Projects\n\n### 1. Budget Tracker App\n- Track daily expenses\n- Categorize spending\n- Monthly reports and charts\n- Tech: React Native + SQLite\n\n### 2. Recipe Sharing Platform\n- User-submitted recipes\n- Rating and comments\n- Meal planning feature\n- Tech: Next.js + PostgreSQL\n\n### 3. Habit Tracker\n- Daily habit checklist\n- Streak tracking\n- Statistics and insights\n- Tech: Flutter + Firebase\n\n## Learning Projects\n\n- Build a compiler\n- Create a game engine\n- Implement a database from scratch\n\n> \"The best way to learn is to build something.\"",
+      "updated_time": 1732200000000
     }
   ]
 }
