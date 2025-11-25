@@ -14,7 +14,7 @@ A web-based note-taking application inspired and compatible by [Joplin](https://
 - **Search**: Filter notes by title and content
 - **Debug logging**: Built-in import log viewer for troubleshooting
 
-<img width="1512" height="771" alt="Screenshot 2025-11-25 at 20 54 51" src="https://github.com/user-attachments/assets/326d6e9a-07e1-44f9-b69f-46515016d54c" />
+<img width="1509" height="769" alt="Screenshot 2025-11-25 at 21 35 45" src="https://github.com/user-attachments/assets/5bbd63b9-2dee-414a-9201-244cd7b469bc" />
 
 ## Project Structure
 
