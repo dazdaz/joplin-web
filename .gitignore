@@ -1,4 +1,6 @@
 # Miscellaneous
+database.sqlite
+database.sqlite.backup
 *.class
 *.log
 *.pyc
